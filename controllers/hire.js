@@ -20,10 +20,13 @@ module.exports = {
             } else {
                 console.log(process.env.UEMAIL,process.env.PEMAIL);
                 var transporter = nodemailer.createTransport({
-                    service: 'gmail',
+                    host: 'smtp.gmail.com',
+					port: 465,
+					secure: true,
+					pool:true,
                     auth: {
-                           user: process.env.UEMAIL,
-                           pass:  process.env.PEMAIL
+                            user: 'dignitestudio@gmail.com',
+                            pass:  'Dignitestudio123!'
                        }
                 });
                 const mailOptions = {
@@ -41,13 +44,16 @@ module.exports = {
                             `,
                 };
                 transporter.sendMail(mailOptions, function (err, info) {
-                    if(err)
-                      console.log(err)
-                    else
-                      console.log(info);
+                    if(err){
+                        console.log(err)
+                        res.send(err)
+                    }else {
+                        console.log(info);
+                        res.send(info)
+                    }
+                    res.status(201).send(err,info)
                 });
 
-                res.status(201).send(result)
             }
         })
 

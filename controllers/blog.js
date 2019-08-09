@@ -100,6 +100,32 @@ module.exports = {
             }
         })
     },
+
+    // get sesuai slug
+
+    getBySlug: (req,res) => {
+        let sql = `select * from blog where slug = '${req.params.slug}'`
+        const db = require('../db');
+        db.query(sql, (err, result) => {
+            if(err){
+                res.json({success:false,message:'gagal'})
+            } else {
+                res.send(result)
+            }
+        })
+    },
+
+    getByCategoryAndSlug: (req,res) => {
+        let sql = `select * from blog where slug = '${req.params.slug}' and category = '${req.params.category}'`
+        const db = require('../db');
+        db.query(sql, (err, result) => {
+            if(err){
+                res.json({success:false,message:'gagal'})
+            } else {
+                res.send(result)
+            }
+        })
+    },
 }
 
 

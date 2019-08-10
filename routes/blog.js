@@ -15,5 +15,8 @@ router.get('/blogCategory/:category',controller.perCategoryAll)
 router.get('/blogCategoryDetail/:category/:slug',controller.getByCategoryAndSlug)
 router.get('/blogDetail/:slug',controller.getBySlug)
 
+router.get('/search/:search',controller.search)
+
+
 
 module.exports = router;

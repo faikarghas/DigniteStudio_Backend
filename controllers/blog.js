@@ -126,6 +126,18 @@ module.exports = {
             }
         })
     },
+
+    search: (req,res) => {
+        let sql = `select * from blog where title LIKE '%${req.params.search}%'`
+        const db = require('../db');
+        db.query(sql, (err, result) => {
+            if(err){
+                res.json({success:false,message:'gagal'})
+            } else {
+                res.send(result)
+            }
+        })
+    },
 }
 
 

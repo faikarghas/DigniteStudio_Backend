@@ -13,7 +13,11 @@ app.use(cors());
 app.use(fileUpload());
 
 
-app.use('/images', express.static(__dirname + '/../images',{
+// app.use('/images', express.static(__dirname + '/../images/image',{
+//     maxAge:cacheTime
+// }));
+
+app.use('/images', express.static(__dirname + '/../images/image/projects',{
     maxAge:cacheTime
 }));
 

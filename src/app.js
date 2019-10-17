@@ -18,7 +18,7 @@ app.use(fileUpload());
 // }));
 
 app.use('/images', express.static(__dirname + '/../images/image/projects',{
-    maxAge:cacheTime
+    maxAge: "365d"
 }));
 
 app.use('/api', hire);

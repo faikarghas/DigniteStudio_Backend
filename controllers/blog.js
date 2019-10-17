@@ -138,6 +138,27 @@ module.exports = {
             }
         })
     },
+
+
+    testFilter: (req,res) => {
+        let judul = req.params.title
+        let category = req.params.category
+
+        let sql1 =`select * from blog where title = ${req.params.judul}`
+        let sql2 =`select * from blog where title = ${req.params.category}`
+
+        const db = require('../db');
+
+
+        db.query(sql, (err, result) => {
+            if(err){
+                res.json({success:false,message:'gagal'})
+            } else {
+                res.send(result)
+            }
+        })
+
+    }
 }
 
 

@@ -7,13 +7,15 @@ const hire              = require('../routes/hire');
 const blog              = require('../routes/blog');
 
 const app       = express();
-
+const cacheTime = 31536000 // the time you want
 
 app.use(cors());
 app.use(fileUpload());
 
 
-app.use('/images', express.static(__dirname + '/../images'));
+app.use('/images', express.static(__dirname + '/../images'),{
+    maxAge: cacheTime
+});
 
 app.use('/api', hire);
 app.use('/api', blog);

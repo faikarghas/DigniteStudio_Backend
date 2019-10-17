@@ -13,9 +13,9 @@ app.use(cors());
 app.use(fileUpload());
 
 
-app.use('/images', express.static(__dirname + '/../images'),{
-    maxAge: cacheTime
-});
+app.use('/images', express.static(__dirname + '/../images',{
+    maxAge:cacheTime
+}));
 
 app.use('/api', hire);
 app.use('/api', blog);

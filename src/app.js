@@ -7,21 +7,13 @@ const hire              = require('../routes/hire');
 const blog              = require('../routes/blog');
 
 const app       = express();
-const cacheTime = 31536000 // the time you want
+
 
 app.use(cors());
 app.use(fileUpload());
 
 
-// app.use('/images', express.static(__dirname + '/../images/image',{
-//     maxAge:cacheTime
-// }));
-
-app.use('/images', express.static(__dirname + '/../images/image/projects',{
-    setHeaders(res) {
-		res.setHeader("Cache-Control", "public,max-age=31536000,immutable");
-	}
-}));
+app.use('/images', express.static(__dirname + '/../images'));
 
 app.use('/api', hire);
 app.use('/api', blog);

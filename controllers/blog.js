@@ -1,89 +1,32 @@
 module.exports = {
     // per page
-    perPage: (req,res) => {
-        let sql = 'select * from blog'
+    getPageBlog: (req,res) => {
+        let sql = 'select * from blog ORDER BY created_at DESC'
         let currentPage = req.params.page
         const db = require('../db');
         db.query(sql, (err, result) => {
             if(err){
-                res.json({success:false,message:'gagal'})
+                res.json({success:false,message:err.message})
             } else {
                 let data = result;
                 let limitPage = 4;
-                function paginate(arr, perpage, page) {
-                    return data.slice(limitPage*(currentPage-1), limitPage*currentPage);
+                function paginate(limit, data, curr) {
+                    return data.slice(limit*(currentPage-1), limit*curr);
                 }
-                let resultku = paginate()
-                res.send(resultku)
+                let resultku = paginate(limitPage,data,currentPage)
+                res.send({currPage:resultku,totalPage:data.length})
             }
         })
     },
-    // page 1
-    pageOne : (req,res) => {
-        let sql = 'select * from blog'
-        let currentPage = 1
-        const db = require('../db');
-        db.query(sql, (err, result) => {
-            if(err){
-                res.json({success:false,message:'gagal'})
-            } else {
-                let data = result;
-                let limitPage = 4;
-                function paginate(arr, perpage, page) {
-                    return data.slice(limitPage*(currentPage-1), limitPage*currentPage);
-                }
-                let resultku = paginate()
-                res.send(resultku)
-            }
-        })
-    },
-    // semua page
-    allPage : (req,res) => {
-        let sql = 'select * from blog'
-        const db = require('../db');
-        db.query(sql, (err, result) => {
-            if(err){
-                res.json({success:false,message:'gagal'})
-            } else {
-                res.send(result)
-            }
-        })
-    },
-    // semua page per category
-    perCategoryAll : (req,res) => {
-        let sql = `select * from blog where category = '${req.params.category}'`
-        console.log(req.params.category);
-        const db = require('../db')
-        db.query(sql, (err,result) => {
-            if(err){
-                res.json({success:false,message:'gagal'})
-            } else {
-                res.send(result)
-            }
-        })
-    },
-    // page 1 category
-    pageOneCategory : (req,res) => {
-        let sql = `select * from blog where category = '${req.params.category}'`
-        let currentPage = 1
-        const db = require('../db');
-        db.query(sql, (err, result) => {
-            if(err){
-                res.json({success:false,message:'gagal'})
-            } else {
-                let data = result;
-                let limitPage = 4;
-                function paginate(arr, perpage, page) {
-                    return data.slice(limitPage*(currentPage-1), limitPage*currentPage);
-                }
-                let resultku = paginate()
-                res.send(resultku)
-            }
-        })
-    },
+
+
     // per page category
     perPageCategory: (req,res) => {
-        let sql = `select * from blog where category = '${req.params.category}'`
+        let sql
+        req.params.category !== 'all' ?
+        sql = `select * from blog where category = '${req.params.category}' ORDER BY created_at DESC`
+        : sql = 'select * from blog ORDER BY created_at DESC'
+
         let currentPage = req.params.page
         const db = require('../db');
         db.query(sql, (err, result) => {
@@ -92,37 +35,32 @@ module.exports = {
             } else {
                 let data = result;
                 let limitPage = 4;
-                function paginate(arr, perpage, page) {
-                    return data.slice(limitPage*(currentPage-1), limitPage*currentPage);
+                function paginate(limit, data, curr) {
+                    return data.slice(limit*(currentPage-1), limit*curr);
                 }
-                let resultku = paginate()
-                res.send(resultku)
+                let resultku = paginate(limitPage,data,currentPage)
+                res.send({currPage:resultku,totalPage:data.length})
             }
         })
     },
 
-    // get sesuai slug
-
-    getBySlug: (req,res) => {
-        let sql = `select * from blog where slug = '${req.params.slug}'`
-        const db = require('../db');
-        db.query(sql, (err, result) => {
-            if(err){
-                res.json({success:false,message:'gagal'})
-            } else {
-                res.send(result)
-            }
-        })
-    },
+    // get sesuai slug dan rekomen keep inspired 3 blog
 
     getByCategoryAndSlug: (req,res) => {
         let sql = `select * from blog where slug = '${req.params.slug}' and category = '${req.params.category}'`
         const db = require('../db');
-        db.query(sql, (err, result) => {
+        db.query(sql, (err, result1) => {
             if(err){
-                res.json({success:false,message:'gagal'})
+                res.json({success:false,message:err.message})
             } else {
-                res.send(result)
+                let sql2 = `select * from blog where category = '${req.params.category}' ORDER BY created_at DESC LIMIT 3`
+                db.query(sql2,(err,result2)=>{
+                    if (err) {
+                        res.json({success:false,message:err.message})
+                    } else {
+                        res.send({detail:result1,keep:result2})
+                    }
+                })
             }
         })
     },
@@ -140,25 +78,6 @@ module.exports = {
     },
 
 
-    testFilter: (req,res) => {
-        let judul = req.params.title
-        let category = req.params.category
-
-        let sql1 =`select * from blog where title = ${req.params.judul}`
-        let sql2 =`select * from blog where title = ${req.params.category}`
-
-        const db = require('../db');
-
-
-        db.query(sql, (err, result) => {
-            if(err){
-                res.json({success:false,message:'gagal'})
-            } else {
-                res.send(result)
-            }
-        })
-
-    }
 }
 
 

@@ -10,8 +10,6 @@ router.get('/blogCategoryPage/:page/:category',controller.perPageCategory)
 
 router.get('/blogCategoryDetail/:category/:slug',controller.getByCategoryAndSlug)
 
-
-
 router.get('/search/:search',controller.search)
 
 

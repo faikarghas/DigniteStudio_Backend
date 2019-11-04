@@ -13,7 +13,11 @@ app.use(cors());
 app.use(fileUpload());
 
 
-app.use('/images', express.static(__dirname + '/../images'));
+var options = {
+    maxAge: '1y',
+}
+
+app.use('/images', express.static(__dirname + '/../images',options));
 
 app.use('/api', hire);
 app.use('/api', blog);

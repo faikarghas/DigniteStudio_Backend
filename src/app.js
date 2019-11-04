@@ -12,11 +12,14 @@ const app       = express();
 app.use(cors());
 app.use(fileUpload());
 
-
+// cache
 var options = {
+    etag: false,
     maxAge: '1y',
+    setHeaders: function (res, path, stat) {
+      res.set('x-timestamp', Date.now())
+    }
 }
-
 app.use('/images', express.static(__dirname + '/../images',options));
 
 app.use('/api', hire);

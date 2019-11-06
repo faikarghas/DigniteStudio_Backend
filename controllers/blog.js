@@ -84,7 +84,7 @@ module.exports = {
             if(err){
                 res.json({success:false,message:err.message})
             } else {
-                let catBlog = result1.detail.category
+                let catBlog = result1.category
                 let sql2 = `select * from blog where category = '${catBlog}' ORDER BY created_at DESC LIMIT 3`
                 db.query(sql2,(err,result2)=>{
                     if (err) {

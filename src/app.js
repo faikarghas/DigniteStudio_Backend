@@ -22,6 +22,7 @@ var options = {
 }
 app.use('/images', express.static(__dirname + '/../images',options));
 
+
 app.use('/api', hire);
 app.use('/api', blog);
 

@@ -77,6 +77,18 @@ module.exports = {
         })
     },
 
+    getBlogDetail: (req,res) => {
+        let sql = `select * from blog where slug = '${req.params.slug}`
+        const db = require('../db');
+        db.query(sql, (err, result1) => {
+            if(err){
+                res.json({success:false,message:err.message})
+            } else {
+                res.send({detail:result1})
+            }
+        })
+    },
+
 
 }
 

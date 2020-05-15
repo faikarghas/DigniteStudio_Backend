@@ -15,5 +15,5 @@ router.get('/blogDetail/:slug',controller.getBlogDetail)
 router.get('/search/:search',controller.search)
 
 
-
 module.exports = router;
+

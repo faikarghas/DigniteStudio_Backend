@@ -9,10 +9,10 @@ module.exports = {
             if(err){
                 res.json({success:false,message:err.message}) 
             } else {
-                let data = result;
+                let totalData = result.length;
                 let limitPage = 4;
 
-                res.send({allBlog:result,totalPage:Math.ceil(data/limitPage)})
+                res.send({allBlog:result,totalPage:Math.ceil(totalData/limitPage)})
             }
         })
     },

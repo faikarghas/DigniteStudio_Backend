@@ -25,13 +25,14 @@ module.exports = {
 					secure: true,
 					pool:true,
                     auth: {
-                            user: 'dignitestudio@gmail.com',
-                            pass:  'Dignitestudio123!'
+                            user: 'bsdcommercial.bsd@gmail.com',
+                            pass:  'commercialbsd'
                        }
                 });
                 const mailOptions = {
                     from: 'dignite studio 👻" dignitestudio@gmail.com', // sender address
-                    to: 'dignitestudio@gmail.com, mayestaarientasya193@gmail.com, ghassanfaikar1@gmail.com', // list of receivers
+                    // to: 'dignitestudio@gmail.com, mayestaarientasya193@gmail.com, ghassanfaikar1@gmail.com', // list of receivers
+                    to: 'ghassanfaikar1@gmail.com', // list of receivers
                     subject: 'Message', // Subject line
                     html:   `
                             <h3>Profile :</h3>

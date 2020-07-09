@@ -1,4 +1,19 @@
 module.exports = {
+
+    // get all page
+
+    getAllBlog: (req,res) => {
+        let sql = 'select * from blog ORDER BY created_at DESC'
+        const db = require('../db');
+        db.query(sql, (err, result) => {
+            if(err){
+                res.json({success:false,message:err.message})
+            } else {
+                res.send({allBlog:result})
+            }
+        })
+    },
+
     // per page
     getPageBlog: (req,res) => {
         let sql = 'select * from blog ORDER BY created_at DESC'

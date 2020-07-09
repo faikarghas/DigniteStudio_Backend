@@ -4,6 +4,8 @@ const controller = require('../controllers/blog')
 
 router.use(bodyParser.json())
 
+router.get('/allBlog',controller.getAllBlog)
+
 router.get('/blog/:page',controller.getPageBlog)
 
 router.get('/blogCategoryPage/:page/:category',controller.perPageCategory)

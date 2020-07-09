@@ -7,9 +7,12 @@ module.exports = {
         const db = require('../db');
         db.query(sql, (err, result) => {
             if(err){
-                res.json({success:false,message:err.message})
+                res.json({success:false,message:err.message}) 
             } else {
-                res.send({allBlog:result})
+                let data = result;
+                let limitPage = 4;
+
+                res.send({allBlog:result,totalPage:Math.ceil(data/limitPage)})
             }
         })
     },
